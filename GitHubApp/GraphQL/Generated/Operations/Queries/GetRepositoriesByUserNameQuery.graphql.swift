@@ -8,7 +8,7 @@ extension GitHubGraphQLAPI {
     static let operationName: String = "GetRepositoriesByUserName"
     static let operationDocument: ApolloAPI.OperationDocument = .init(
       definition: .init(
-        #"query GetRepositoriesByUserName($username: String!) { user(login: $username) { __typename repositories(last: 10) { __typename nodes { __typename id name description createdAt url stargazerCount } } } }"#
+        #"query GetRepositoriesByUserName($username: String!) { user(login: $username) { __typename repositories(first: 20, orderBy: { field: CREATED_AT, direction: DESC }) { __typename nodes { __typename id name description createdAt url stargazerCount } } } }"#
       ))
 
     public var username: String
@@ -41,7 +41,13 @@ extension GitHubGraphQLAPI {
         static var __parentType: any ApolloAPI.ParentType { GitHubGraphQLAPI.Objects.User }
         static var __selections: [ApolloAPI.Selection] { [
           .field("__typename", String.self),
-          .field("repositories", Repositories.self, arguments: ["last": 10]),
+          .field("repositories", Repositories.self, arguments: [
+            "first": 20,
+            "orderBy": [
+              "field": "CREATED_AT",
+              "direction": "DESC"
+            ]
+          ]),
         ] }
 
         /// A list of repositories that the user owns.
