@@ -1,0 +1,86 @@
+query GetRepositoriesByUserName($username: String!) {
+  user(login: $username) {
+    repositories(last: 10) {
+      nodes {
+        id
+        name
+        description
+        createdAt
+        url
+        stargazerCount
+      }
+    }
+  }
+}
+
+mutation CreateRepository($name: String!, $description: String,
+$visibility:RepositoryVisibility!, $clientMutationId: String) {
+  createRepository(input: {
+    name: $name,
+    visibility: $visibility,
+    description: $description,
+    clientMutationId: $clientMutationId
+  }) {
+    clientMutationId
+  }
+}
+
+query GetTopRepositoriesForUser($username: String!) {
+  user(login: $username) {
+    name
+    repositories(
+      first: 10,
+      orderBy: {
+        field: STARGAZERS
+        direction: DESC
+      }
+    ) {
+      nodes {
+        id
+        name
+        createdAt
+        description
+        url
+        stargazerCount
+      }
+    }
+    
+  }
+}
+
+query GetReadmeForRepository($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    readme: object(expression: "HEAD:README.md") {
+      ... on Blob {
+        text
+      }
+    }
+  }
+}
+
+query GetRepositoryTree($owner: String!, $name: String!, $path: String = "HEAD:") {
+  repository(owner: $owner, name: $name) {
+    object(expression: $path) {
+      ... on Tree {
+        entries {
+          name
+          type # "blob" for file, "tree" for directory
+          oid # The Git object ID, useful for fetching content later
+          # We might also want path if it's not easily derivable
+        }
+      }
+    }
+  }
+}
+
+query GetBlobContent($owner: String!, $name: String!, $oid: GitObjectID!) {
+  repository(owner: $owner, name: $name) {
+    object(oid: $oid) {
+      ... on Blob {
+        text # The file content as a UTF-8 string
+        byteSize
+        isBinary
+      }
+    }
+  }
+}

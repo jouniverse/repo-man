@@ -1,0 +1,30 @@
+{
+  "schemaNamespace": "GitHubGraphQLAPI",
+  "input": {
+    "operationSearchPaths": [
+      "GitHubApp/GraphQL/**/*.graphql"
+    ],
+    "schemaSearchPaths": [
+      "GitHubApp/schema.json"
+    ]
+  },
+  "output": {
+    "testMocks": {
+      "none": {}
+    },
+    "schemaTypes": {
+      "path": "./GitHubApp/GraphQL/Generated",
+      "moduleType": {
+        "embeddedInTarget": {
+          "name": "GitHubApp"
+        }
+      }
+    },
+    "operations": {
+      "inSchemaModule": {}
+    }
+  },
+  "experimentalFeatures": {
+    "legacySafelistingCompatibleOperations": false
+  }
+}
