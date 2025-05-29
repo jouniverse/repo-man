@@ -16,9 +16,7 @@ Add the token to your environment variables (Edit Schema > Run > Arguments) as `
 
 # UI
 
-![UI Screenshot 1](./imgs/ui-1.png)
-![UI Screenshot 2](./imgs/ui-2.png)
-![UI Screenshot 3](./imgs/ui-3.png)
+![UI Screenshot 1](./imgs/ui.png)
 
 Walkthrough of the app is available [here](https://youtu.be/QM2q1P5KM2A).
 
