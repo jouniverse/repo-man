@@ -1,6 +1,6 @@
 # Repo Man
 
-Repo Man is a small GitHub App that helps you monitor repositories.
+Repo Man is a small GitHub App for iOS that helps you monitor repositories.
 
 # Features
 
